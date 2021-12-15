@@ -18,57 +18,16 @@ namespace Fakultet_projekat
         SqlCommand cm = new SqlCommand();
         DBConnection dbcon = new DBConnection();
         SqlDataReader dr;
+        Ucitavanje loader = new Ucitavanje();
 
         // Globalne promenljive 
         string id_grida;
         int selektovani_red_grida, id_ucenika, id_ulice;
-
-
         public Student()
         {
             InitializeComponent();
             //Uspostavljanje konekcije u trenutku poziva forme
-
-
         }
-        void Ucitaj_ucenika()
-        {
-
-            dataGridView1.Rows.Clear();
-            cn.Open();
-            cm = new SqlCommand("select s.id_studenta, s.ime, s.prezime, s.broj_indeksa, a.grad, a.drzava,a.ime_ulice from student as s left outer join adrese as a on s.adrese_id_adrese = a.id_adrese", cn);
-            cm.ExecuteNonQuery();
-            dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                dataGridView1.Rows.Add(dr["id_studenta"].ToString(), dr["ime"].ToString(), dr["prezime"].ToString(), $"{dr["drzava"].ToString()}, {dr["grad"].ToString()}, {dr["ime_ulice"].ToString()} ", dr["broj_indeksa"].ToString());
-            }
-            dr.Close();
-            cn.Close();
-        }
-
-        void Ucitaj_Adrese()
-        {
-            cn.Open();
-            cm = new SqlCommand(" SELECT * FROM adrese ", cn);
-            cm.ExecuteNonQuery();
-            dr = cm.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(dr);
-            adresebox.DataSource = dt;
-
-            //Pozivanje ostalih redova u DataSourse 
-
-            adresebox.DisplayMember = "ime_ulice";
-            adresebox.ValueMember = "id_adrese";
-
-            adresebox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            adresebox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-            dr.Close();
-            cn.Close();
-        }
-
         private void Unesi_studenta_BTN_Click(object sender, EventArgs e)
         {
             if (Ime_studenta_TB.Text != "" && Prezime_Studenta_TB.Text != "" && adresebox.Text != "" && Broj_Indexa_TB.Text != "")
@@ -102,7 +61,7 @@ namespace Fakultet_projekat
                 MessageBox.Show("Niste uneli potrebne podatke o uceniku", "Ovbevestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
-            Ucitaj_ucenika();
+            loader.Ucitaj_ucenika(cn,dr,dataGridView1);
 
         }
 
@@ -118,7 +77,7 @@ namespace Fakultet_projekat
                                         " WHERE id_studenta=" + id_grida, cn);
                     cm.ExecuteNonQuery();
                     cn.Close();
-                    Ucitaj_ucenika();
+                    loader.Ucitaj_ucenika(cn, dr, dataGridView1);
                     MessageBox.Show("Red je uspesno izbrisan", "Obaveštenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
@@ -150,7 +109,7 @@ namespace Fakultet_projekat
             cm.Parameters.AddWithValue("@id_adrese", adresebox.SelectedValue);
             cm.ExecuteNonQuery();
             cn.Close();
-            Ucitaj_ucenika();
+            loader.Ucitaj_ucenika(cn, dr, dataGridView1);
 
             dataGridView1.Rows[selektovani_red_grida].Selected = true;
             dataGridView1.FirstDisplayedScrollingRowIndex = selektovani_red_grida;
@@ -166,8 +125,8 @@ namespace Fakultet_projekat
     private void Student_Load(object sender, EventArgs e)
         {
             cn = new SqlConnection(dbcon.MyConection());
-            Ucitaj_ucenika();
-            Ucitaj_Adrese();
+            loader.Ucitaj_ucenika(cn, dr, dataGridView1);
+            loader.Ucitaj_Adrese(cn, dr, adresebox);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -211,7 +170,7 @@ namespace Fakultet_projekat
                                             " WHERE id_studenta=" + id_grida, cn);
                         cm.ExecuteNonQuery();
                         cn.Close();
-                        Ucitaj_ucenika();
+                        loader.Ucitaj_ucenika(cn, dr, dataGridView1);
                         MessageBox.Show("Red je uspesno izbrisan", "Obaveštenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     }

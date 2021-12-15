@@ -32,5 +32,11 @@ namespace Fakultet_projekat
             MessageBox.Show("Connection Open  !");
             cn.Close();
         }
+
+        private void pretragaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pretraga pretragaforma = new Pretraga();
+            pretragaforma.Show();
+        }
     }
 }

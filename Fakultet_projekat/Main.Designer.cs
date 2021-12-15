@@ -32,6 +32,7 @@
             this.formeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
+            this.pretragaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,8 @@
             // formeToolStripMenuItem
             // 
             this.formeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.studentToolStripMenuItem});
+            this.studentToolStripMenuItem,
+            this.pretragaToolStripMenuItem});
             this.formeToolStripMenuItem.Name = "formeToolStripMenuItem";
             this.formeToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.formeToolStripMenuItem.Text = "forme";
@@ -56,7 +58,7 @@
             // studentToolStripMenuItem
             // 
             this.studentToolStripMenuItem.Name = "studentToolStripMenuItem";
-            this.studentToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.studentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.studentToolStripMenuItem.Text = "Student";
             this.studentToolStripMenuItem.Click += new System.EventHandler(this.studentToolStripMenuItem_Click);
             // 
@@ -69,6 +71,13 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // pretragaToolStripMenuItem
+            // 
+            this.pretragaToolStripMenuItem.Name = "pretragaToolStripMenuItem";
+            this.pretragaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pretragaToolStripMenuItem.Text = "Pretraga";
+            this.pretragaToolStripMenuItem.Click += new System.EventHandler(this.pretragaToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -93,6 +102,7 @@
         private System.Windows.Forms.ToolStripMenuItem formeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem studentToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem pretragaToolStripMenuItem;
     }
 }
 
